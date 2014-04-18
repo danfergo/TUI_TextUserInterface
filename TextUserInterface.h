@@ -17,7 +17,7 @@
 
 class TextUserInterface {
 public:
-	enum Alignment {LEFT, CENTER, RIGHT};
+	 enum Alignment {LEFT, CENTER, RIGHT};
 private:
 	unsigned int width;
 	unsigned int height;
