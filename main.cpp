@@ -1,11 +1,16 @@
-#include "tui/TUInterface.h"
+#include "tui/TextUserInterface.h"
 
+using namespace tui;
 
 int main(){
-
-	TUInterface tuix("Hello World app", 75,30);
+	Interface tuix("Hello World!", 75,30);
+	PageMenu * m = new PageMenu("Main Menu");
+	Page * page = new Page("My Page");
+	m->addOption(page);
+	tuix.setRoot(m);
 	tuix.run();
-
 
 	return 0;
 }
+
+

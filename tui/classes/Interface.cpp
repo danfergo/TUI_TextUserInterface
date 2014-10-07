@@ -5,34 +5,33 @@
  *      Author: Daniel
  */
 
-#include "TUInterface.h"
-#include <stdlib.h>
+#include "Interface.h"
 #include <iostream>
-#include <deque>
 
-TUInterface::TUInterface(std::string title,unsigned cols, unsigned rows):root(new Page()), running(false), title(title), cols(cols), rows(rows){
+tui::Interface::Interface(std::string title,unsigned cols, unsigned rows):root(new Page(title)), running(false), title(title), cols(cols), rows(rows){
 
-
-}
-
-/*
-TUInterface::TUInterface(std::string,unsigned cols, unsigned rows): root(new Page()),running(false) {
-
-}
-*/
-TUInterface::~TUInterface() {
 
 }
 
-void TUInterface::setCols(unsigned cols){
+tui::Interface::~Interface() {
+
+}
+
+void tui::Interface::setCols(unsigned cols){
 	this->cols = cols;
 }
-void TUInterface::setRows(unsigned rows){
+void tui::Interface::setRows(unsigned rows){
 	this->rows = rows;
 }
 
+tui::Page * tui::Interface::setRoot(Page * root){
+	Page * current = this->root;
+	this->root = root;
+	return current;
+}
 
-void TUInterface::run(){
+
+void tui::Interface::run(){
 	running = true;
 	std::string input;
 	while(running){
@@ -42,18 +41,34 @@ void TUInterface::run(){
 	}
 }
 
-void TUInterface::pause(){
+void tui::Interface::pause(){
 	running = 0;
 }
 
 
 
 
-void TUInterface::display(){
+void tui::Interface::display(){
 	std::deque<Page *> activeChain = root->getActiveChain();
 	std::vector<std::string> activePageContent = activeChain.front()->display();
 	unsigned i = 0;
 	std::string screen;
+	try{
+		std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << std::endl;
+	}catch(...){}
+
+	for(std::deque<Page *>::iterator it = activeChain.begin();
+			it!=activeChain.end(); it++){
+		if((*it)->getTitle() != ""){
+			if(it == activeChain.begin()){
+				std::cout << (*it)->getTitle() ;
+			}else
+				std::cout << " -> " << (*it)->getTitle() ;
+
+		}
+
+	}
+	std::cout << "\n";
 
 
 
@@ -63,7 +78,6 @@ void TUInterface::display(){
 		if(i == 49) break;
 		i++;
 	}
-	std::cout << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n" << std::endl;
 	std::cout << "+----------------------------------------------+" << std::endl;
 	std::cout << screen;
 	std::cout << "+----------------------------------------------+" << std::endl;
